@@ -4,13 +4,14 @@
   border-radius: 2px;
 
   &.large {
-    width: 390px;
+    width: 200px;
     height: 390px;
   }
 
   .leaflet-control-controlPanel-properties {
-    width: 100%;
+    width: 98%;
     height: 80%;
+    padding: 1%;
     float: left;
   }
   .leaflet-control-controlPanel-actions {
@@ -20,7 +21,7 @@
     float: left;
     text-align: center;
     border-top: 1px solid rgba(0,0,0,0.2);
-    
+
     .button {
       border: 2px solid rgba(0,0,0,0.2);
       font-size: 0.8em;
@@ -28,7 +29,7 @@
       margin-right: 5%;
       padding: 1%;
       border-radius: 2px;
-      margin-top: 3%;
+      margin-top: 8%;
     }
   }
 }
