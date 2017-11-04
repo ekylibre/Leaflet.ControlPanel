@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "leaflet": "^1.2.0",
-    "leaflet-draw": "^0.4.12"
+    "leaflet-draw": "^0.4.12",
+    "lodash": "^4.17.4"
   }
 }

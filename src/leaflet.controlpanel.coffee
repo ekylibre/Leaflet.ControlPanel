@@ -1,4 +1,5 @@
 L = require 'leaflet'
+_ = require 'lodash'
 
 class L.Control.ControlPanel extends L.Control
   options:
@@ -9,8 +10,7 @@ class L.Control.ControlPanel extends L.Control
     expanded: true
 
   constructor: (@_toolbar, options = {}) ->
-    L.Util.setOptions @, options
-
+    @options = _.merge @options, options
     @_toolbar.on 'enable', @addPanel, @
     @_toolbar.on 'disable', @removePanel, @
 

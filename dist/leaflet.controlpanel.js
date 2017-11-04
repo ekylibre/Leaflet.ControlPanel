@@ -68,18 +68,20 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(1);
-module.exports = __webpack_require__(3);
+module.exports = __webpack_require__(4);
 
 
 /***/ }),
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var L,
+var L, _,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
 
 L = __webpack_require__(2);
+
+_ = __webpack_require__(3);
 
 L.Control.ControlPanel = (function(superClass) {
   extend(ControlPanel, superClass);
@@ -97,7 +99,7 @@ L.Control.ControlPanel = (function(superClass) {
     if (options == null) {
       options = {};
     }
-    L.Util.setOptions(this, options);
+    this.options = _.merge(this.options, options);
     this._toolbar.on('enable', this.addPanel, this);
     this._toolbar.on('disable', this.removePanel, this);
     this._actionButtons = [];
@@ -200,6 +202,12 @@ module.exports = L;
 
 /***/ }),
 /* 3 */
+/***/ (function(module, exports) {
+
+module.exports = _;
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
