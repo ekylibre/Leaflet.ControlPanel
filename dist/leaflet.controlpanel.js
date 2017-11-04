@@ -128,7 +128,13 @@ L.Control.ControlPanel = (function(superClass) {
     this._actionsContainer = L.DomUtil.create('div', this.options.actionsClassName, this._container);
     L.DomEvent.disableScrollPropagation(this._container);
     this._showActionsToolbar();
+    this.addProperties();
     return this._container;
+  };
+
+  ControlPanel.prototype.addProperties = function() {
+    this._addAnimatedHelper();
+    return this._addPointerCoordinates();
   };
 
   ControlPanel.prototype.onRemove = function() {};
@@ -192,6 +198,37 @@ L.Control.ControlPanel = (function(superClass) {
     this._actionsContainer.style.display = 'none';
     L.DomUtil.removeClass(this._actionsContainer, 'leaflet-draw-actions-top');
     L.DomUtil.removeClass(this._actionsContainer, 'leaflet-draw-actions-bottom');
+  };
+
+  ControlPanel.prototype._addAnimatedHelper = function() {
+    var container, img;
+    container = L.DomUtil.create('div', 'property', this._propertiesContainer);
+    this._animatedHelperContainer = L.DomUtil.create('div', 'property-content', container);
+    if (this.options.animatedHelper) {
+      img = L.DomUtil.create('img', 'animated-helper', this._animatedHelperContainer);
+      return img.src = this.options.animatedHelper;
+    }
+  };
+
+  ControlPanel.prototype._addPointerCoordinates = function() {
+    var container, containerTitle;
+    container = L.DomUtil.create('div', 'property', this._propertiesContainer);
+    containerTitle = L.DomUtil.create('div', 'property-title', container);
+    containerTitle.innerHTML = "Coordinates";
+    this._pointerCoordinatesContainer = L.DomUtil.create('div', 'property-content', container);
+    return this._map.on('mousemove', this._onUpdateCoordinates, this);
+  };
+
+  ControlPanel.prototype._onUpdateCoordinates = function(e) {
+    var coordinates, lat, latRow, lng, lngRow;
+    coordinates = e.latlng;
+    L.DomUtil.empty(this._pointerCoordinatesContainer);
+    latRow = L.DomUtil.create('div', 'coordinates-row', this._pointerCoordinatesContainer);
+    lat = L.DomUtil.create('div', 'coordinate', latRow);
+    lat.innerHTML = "lat: " + coordinates.lat;
+    lngRow = L.DomUtil.create('div', 'coordinates-row', this._pointerCoordinatesContainer);
+    lng = L.DomUtil.create('div', 'coordinate', lngRow);
+    return lng.innerHTML = "lng: " + coordinates.lng;
   };
 
   return ControlPanel;

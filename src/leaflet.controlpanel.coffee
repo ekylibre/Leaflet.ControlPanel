@@ -31,7 +31,7 @@ class L.Control.ControlPanel extends L.Control
     if @options.title
       @_titleContainer = L.DomUtil.create 'div', @options.titleClassName, @_container
       @_titleContainer.innerHTML = @options.title
-      
+
     @_propertiesContainer = L.DomUtil.create 'div', @options.propertiesClassName, @_container
     @_actionsContainer = L.DomUtil.create 'div', @options.actionsClassName, @_container
 
@@ -39,7 +39,13 @@ class L.Control.ControlPanel extends L.Control
 
     @_showActionsToolbar()
 
+    @addProperties()
+
     @_container
+
+  addProperties: ->
+    @_addAnimatedHelper()
+    @_addPointerCoordinates()
 
   onRemove: ->
 
@@ -99,3 +105,37 @@ class L.Control.ControlPanel extends L.Control
     L.DomUtil.removeClass @_actionsContainer, 'leaflet-draw-actions-top'
     L.DomUtil.removeClass @_actionsContainer, 'leaflet-draw-actions-bottom'
     return
+
+
+  _addAnimatedHelper: () ->
+
+    container = L.DomUtil.create 'div', 'property', @_propertiesContainer
+
+    @_animatedHelperContainer = L.DomUtil.create 'div', 'property-content', container
+
+    if @options.animatedHelper
+      img = L.DomUtil.create 'img', 'animated-helper', @_animatedHelperContainer
+      img.src = @options.animatedHelper
+
+  _addPointerCoordinates: () ->
+
+    container = L.DomUtil.create 'div', 'property', @_propertiesContainer
+
+    containerTitle = L.DomUtil.create 'div', 'property-title', container
+    containerTitle.innerHTML = "Coordinates"
+
+    @_pointerCoordinatesContainer = L.DomUtil.create 'div', 'property-content', container
+
+    @_map.on 'mousemove', @_onUpdateCoordinates, @
+
+  _onUpdateCoordinates: (e) ->
+    coordinates = e.latlng
+    L.DomUtil.empty(@_pointerCoordinatesContainer)
+
+    latRow = L.DomUtil.create 'div', 'coordinates-row', @_pointerCoordinatesContainer
+    lat = L.DomUtil.create 'div', 'coordinate', latRow
+    lat.innerHTML = "lat: " + coordinates.lat
+
+    lngRow = L.DomUtil.create 'div', 'coordinates-row', @_pointerCoordinatesContainer
+    lng = L.DomUtil.create 'div', 'coordinate', lngRow
+    lng.innerHTML = "lng: " + coordinates.lng
