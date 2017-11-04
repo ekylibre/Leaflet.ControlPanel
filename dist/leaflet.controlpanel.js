@@ -89,6 +89,7 @@ L.Control.ControlPanel = (function(superClass) {
   ControlPanel.prototype.options = {
     position: 'bottomleft',
     className: 'leaflet-control-controlPanel',
+    titleClassName: 'leaflet-control-controlPanel-title',
     propertiesClassName: 'leaflet-control-controlPanel-properties',
     actionsClassName: 'leaflet-control-controlPanel-actions',
     expanded: true
@@ -118,6 +119,10 @@ L.Control.ControlPanel = (function(superClass) {
     this._container = L.DomUtil.create('div', this.options.className);
     if (this.options.expanded) {
       L.DomUtil.addClass(this._container, 'large');
+    }
+    if (this.options.title) {
+      this._titleContainer = L.DomUtil.create('div', this.options.titleClassName, this._container);
+      this._titleContainer.innerHTML = this.options.title;
     }
     this._propertiesContainer = L.DomUtil.create('div', this.options.propertiesClassName, this._container);
     this._actionsContainer = L.DomUtil.create('div', this.options.actionsClassName, this._container);
