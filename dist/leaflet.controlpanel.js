@@ -92,7 +92,8 @@ L.Control.ControlPanel = (function(superClass) {
     titleClassName: 'leaflet-control-controlPanel-title',
     propertiesClassName: 'leaflet-control-controlPanel-properties',
     actionsClassName: 'leaflet-control-controlPanel-actions',
-    expanded: true
+    expanded: true,
+    ignoreActions: false
   };
 
   function ControlPanel(_toolbar, options) {
@@ -125,9 +126,11 @@ L.Control.ControlPanel = (function(superClass) {
       this._titleContainer.innerHTML = this.options.title;
     }
     this._propertiesContainer = L.DomUtil.create('div', this.options.propertiesClassName, this._container);
-    this._actionsContainer = L.DomUtil.create('div', this.options.actionsClassName, this._container);
     L.DomEvent.disableScrollPropagation(this._container);
-    this._showActionsToolbar();
+    if (!this.options.ignoreActions) {
+      this._actionsContainer = L.DomUtil.create('div', this.options.actionsClassName, this._container);
+      this._showActionsToolbar();
+    }
     this.addProperties();
     return this._container;
   };

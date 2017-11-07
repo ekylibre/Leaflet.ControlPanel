@@ -10,6 +10,8 @@
     height: 80%;
     padding: 1%;
     float: left; }
+    .leaflet-control-controlPanel .leaflet-control-controlPanel-properties .property {
+      margin-top: 10px; }
   .leaflet-control-controlPanel .leaflet-control-controlPanel-actions {
     padding: 2%;
     width: 96%;

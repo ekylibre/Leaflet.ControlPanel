@@ -9,6 +9,7 @@ class L.Control.ControlPanel extends L.Control
     propertiesClassName: 'leaflet-control-controlPanel-properties'
     actionsClassName: 'leaflet-control-controlPanel-actions'
     expanded: true
+    ignoreActions: false
 
   constructor: (@_toolbar, options = {}) ->
     @options = _.merge @options, options
@@ -33,11 +34,11 @@ class L.Control.ControlPanel extends L.Control
       @_titleContainer.innerHTML = @options.title
 
     @_propertiesContainer = L.DomUtil.create 'div', @options.propertiesClassName, @_container
-    @_actionsContainer = L.DomUtil.create 'div', @options.actionsClassName, @_container
-
     L.DomEvent.disableScrollPropagation @_container
 
-    @_showActionsToolbar()
+    unless @options.ignoreActions
+      @_actionsContainer = L.DomUtil.create 'div', @options.actionsClassName, @_container
+      @_showActionsToolbar()
 
     @addProperties()
 
