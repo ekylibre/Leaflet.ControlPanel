@@ -109,11 +109,19 @@ L.Control.ControlPanel = (function(superClass) {
 
   ControlPanel.prototype.addPanel = function() {
     L.DomUtil.remove(this._toolbar._actionsContainer);
-    return this._toolbar._map.addControl(this);
+    this._toolbar._map.addControl(this);
+    return L.DomEvent.on(this._toolbar._map._container, 'keyup', this._onCancel, this);
   };
 
   ControlPanel.prototype.removePanel = function() {
+    L.DomEvent.off(this._toolbar._map._container, 'keyup', this._onCancel, this);
     return this._toolbar._map.removeControl(this);
+  };
+
+  ControlPanel.prototype._onCancel = function(e) {
+    if (e.keyCode === 27) {
+      return this._toolbar.disable();
+    }
   };
 
   ControlPanel.prototype.onAdd = function(map) {

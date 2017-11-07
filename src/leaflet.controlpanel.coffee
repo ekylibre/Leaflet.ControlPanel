@@ -22,8 +22,17 @@ class L.Control.ControlPanel extends L.Control
     L.DomUtil.remove @_toolbar._actionsContainer
     @_toolbar._map.addControl @
 
+    L.DomEvent.on @_toolbar._map._container, 'keyup', @_onCancel, @
+
+
   removePanel: ->
+    L.DomEvent.off @_toolbar._map._container, 'keyup', @_onCancel, @
     @_toolbar._map.removeControl @
+
+  #Cancel drawing when the escape key is pressed
+  _onCancel: (e) ->
+    if e.keyCode == 27
+      @_toolbar.disable()
 
   onAdd: (map) ->
     @_container = L.DomUtil.create 'div', @options.className
